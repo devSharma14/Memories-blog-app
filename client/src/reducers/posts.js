@@ -1,19 +1,21 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from "../constants/actionTypes";
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE , FETCH_USER_POSTS } from "../constants/actionTypes";
 
 const postsReducer = (posts = [], action) => {
   switch (action.type) {
     case FETCH_ALL:
-      return action.payload; // Returns all posts
+      return action.payload;
     case LIKE:
-      return posts.map((post) => (post._id === action.payload._id ? action.payload : post)); // Updates the liked post
+      return posts.map((post) => (post._id === action.payload._id ? action.payload : post));
     case CREATE:
-      return [...posts, action.payload]; // Adds a new post
+      return [...posts, action.payload]; 
     case UPDATE:
-      return posts.map((post) => (post._id === action.payload._id ? action.payload : post)); // Updates an existing post
+      return posts.map((post) => (post._id === action.payload._id ? action.payload : post)); 
     case DELETE:
-      return posts.filter((post) => post._id !== action.payload); // Removes the deleted post
+      return posts.filter((post) => post._id !== action.payload); 
+    case FETCH_USER_POSTS:
+      return action.payload;
     default:
-      return posts; // Returns the current state if no action matches
+      return posts; 
   }
 };
 

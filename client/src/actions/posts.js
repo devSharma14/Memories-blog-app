@@ -1,11 +1,9 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE , FETCH_USER_POSTS} from '../constants/actionTypes';
 import * as api from '../api/index.js';
-
 
 export const getPosts = () => async (dispatch) => {
   try {
     const { data } = await api.fetchPosts();
-
     dispatch({ type: FETCH_ALL, payload: data });
   } catch (error) {
     console.log(error);
@@ -14,12 +12,9 @@ export const getPosts = () => async (dispatch) => {
 
 export const createPost = (post) => async (dispatch) => {
   try {
-    console.log("actions ke ander aa chuke hain: ");
-
-    console.log("tera data ye rha: ", post);
-
+    // console.log("actions ke ander aa chuke hain: ");
+    // console.log("tera data ye rha: ", post);
     const { data } = await api.createPost(post);
-
     dispatch({ type: CREATE, payload: data });
   } catch (error) {
     console.log(error);
@@ -27,20 +22,17 @@ export const createPost = (post) => async (dispatch) => {
 };
 
 export const updatePost = (id, post) => async (dispatch) => {
-
   try {
     const { data } = await api.updatePost(id, post);
-
     dispatch({ type: UPDATE, payload: data });
-    
   } catch (error) {
     console.log(error);
   }
 };
 
+
 export const likePost = (id) => async (dispatch) => {
   const user = JSON.parse(localStorage.getItem('profile'));
-
   try {
     const { data } = await api.likePost(id, user?.token);
 
@@ -53,11 +45,21 @@ export const likePost = (id) => async (dispatch) => {
 export const deletePost = (id) => async (dispatch) => {
   try {
     await api.deletePost(id);
-
     dispatch({ type: DELETE, payload: id });
-
-    
   } catch (error) {
+    console.log(error);
+  }
+};
+
+
+export const getUserPosts = (id) => async(dispatch) => {
+  try {
+    const {data} = await api.fetchUserPosts(id);
+    // console.log("particular user ka data mil chuka hai actions me");
+    dispatch({type:FETCH_USER_POSTS, payload:data});
+    return data;
+  }
+  catch(error) {
     console.log(error);
   }
 };

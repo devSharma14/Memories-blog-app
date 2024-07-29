@@ -5,3 +5,4 @@ export const FETCH_ALL = 'FETCH_ALL';
 export const LIKE = 'LIKE';
 export const AUTH = 'AUTH';
 export const LOGOUT = 'LOGOUT';
+export const FETCH_USER_POSTS = 'FETCH_USER_POSTS';

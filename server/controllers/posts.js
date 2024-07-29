@@ -85,9 +85,9 @@ export const deletePost = async (req, res) => {
 
     await PostMessage.findByIdAndDelete(id);
 
-    res.json({ message: "Post deleted successfully." });
+    // res.json({ message: "Post deleted successfully." });
 
-    console.log("post succesfully delete ho chuki hai");
+    // console.log("post succesfully delete ho chuki hai");
 }
 
 
@@ -127,5 +127,15 @@ export const likePost = async (req, res) => {
   }
 };
 
+export const getUserPosts = async(req, res) => {
+    const {id} = req.params;
+    try {
+        const userPosts = await PostMessage.find({creator: id});
+        res.status(200).json(userPosts);
+    }
+    catch(error) {
+        res.status(404).json({message: error.message});
+    }
+};
 
 export default router;

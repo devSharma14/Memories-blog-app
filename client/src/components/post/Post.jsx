@@ -34,7 +34,6 @@ const Post = ({ post, setCurrentId }) => {
 
     return (
         <Card className="card">
-            {/* image */}
             <CardMedia
                 image={post.selectedFile}
                 title={post.title}
@@ -42,14 +41,12 @@ const Post = ({ post, setCurrentId }) => {
             />
 
             <CardHeader
-                // created at
                 subheader={"Created " + moment(post.createdAt).fromNow()}
                 className="cardHeader"
             />
 
             <CardActions className="cardActions">
                 <Button
-                    // Like Button
                     size="small"
                     color="primary"
                     disabled={!user?.result}
