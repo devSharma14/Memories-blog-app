@@ -1,6 +1,5 @@
 import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes';
 import * as api from '../api/index.js';
-import { useNavigate } from 'react-router-dom';
 
 
 export const getPosts = () => async (dispatch) => {
@@ -15,7 +14,10 @@ export const getPosts = () => async (dispatch) => {
 
 export const createPost = (post) => async (dispatch) => {
   try {
+    console.log("actions ke ander aa chuke hain: ");
+
     console.log("tera data ye rha: ", post);
+
     const { data } = await api.createPost(post);
 
     dispatch({ type: CREATE, payload: data });

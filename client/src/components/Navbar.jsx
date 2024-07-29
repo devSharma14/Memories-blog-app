@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BookOpenIcon, Bars3BottomRightIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { Link, useNavigate } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode';
@@ -20,8 +20,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('profile'));
-
-    if (storedUser) {
+    if(storedUser) {
       dispatch({ type: actionType.AUTH, data: storedUser });
     }
   }, [dispatch]);
@@ -29,18 +28,17 @@ const Navbar = () => {
   useEffect(() => {
     const token = user?.token;
     console.log("token received: ", token);
-    if (token) {
+    if(token) {
       try {
         const decodedToken = jwtDecode(token);
 
-        if (decodedToken.exp * 1000 < new Date().getTime()) {
+        if(decodedToken.exp * 1000 < new Date().getTime()) {
           dispatch({ type: actionType.LOGOUT });
           navigate('/');
         }
       } catch (error) {
         console.error('Invalid token:', error);
         dispatch({ type: actionType.LOGOUT });
-        navigate('/');
       }
     }
   }, [user, dispatch, navigate]);
@@ -52,6 +50,10 @@ const Navbar = () => {
 
   const handleClick = () => {
     navigate("/form");
+  };
+
+  const handlePostButton = () => {
+    navigate("/createPost");
   };
 
   return (
@@ -74,11 +76,14 @@ const Navbar = () => {
           ))}
           {user ? (
             <>
-              <li className="md:ml-8 md:my-0 my-7 font-semibold text-gray-800">
+              <li className="md:ml-8 md:my-0 my-7 font-semibold text-gray-800 text-1xl">
                 Welcome, {user?.result?.name || 'User'}
               </li>
               <button onClick={handleLogout} className="bg-blue-600 text-white md:ml-8 font-semibold px-3 py-1 rounded duration-500 md:static">
                 Logout
+              </button>
+              <button onClick={handlePostButton} className="bg-blue-600 text-white md:ml-8 font-semibold px-3 py-1 rounded duration-500 md:static">
+                My Posts
               </button>
             </>
           ) : (

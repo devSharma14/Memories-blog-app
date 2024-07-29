@@ -1,87 +1,170 @@
+/* Container styling */
 .container {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    margin-top: 200px;
-    background: #ffffff;
-    padding-bottom: 30px;
-    width: 600px;
-  }
-  
-  .header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 9px;
-    width: 100%;
-    margin-top: 30px;
-  }
-  
-  .text {
-    color: #3c009d;
-    font-size: 48px;
-    font-weight: 700;
-  }
-  
-  .underline {
-    width: 61px;
-    height: 6px;
-    background-color: #3c009d;
-    border-radius: 9px;
-  }
-  
-  .inputs {
-    margin-top: 55px;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-  }
-  
-  .input {
-    display: flex;
-    align-items: center;
-    margin: auto;
-    width: 480px;
-    height: 80px;
-    background: #eaeaea;
-    border-radius: 6px;
-  }
-  
-  .input img {
-    margin: 0 30px;
-  }
-  
-  .input input {
-    height: 50px;
-    width: 100%;
-    background: transparent;
-    border: none;
-    color: #797979;
-    font-size: 19px;
-  }
-  
-  .submit-container {
-    display: flex;
-    gap: 30px;
-    margin: 60px auto;
-  }
-  
-  .submit {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 220px;
-    height: 59px;
-    color: #ffffff;
-    background: #4c00b4;
-    border-radius: 50px;
-    font-size: 19px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-  
-  .gray {
-    background: #eaeaea;
-    color: #676767;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 200px; /* Adjust as needed to create space between navbar and form */
+  background: #ffffff;
+  padding: 30px;
+  width: 600px;
+  border-radius: 10px; /* Adding border-radius for a smoother look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow for depth */
+}
+
+/* Header styling */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+/* Text styling */
+.text {
+  color: #3c009d;
+  font-size: 48px;
+  font-weight: 700;
+}
+
+/* Underline styling */
+.underline {
+  width: 61px;
+  height: 6px;
+  background-color: #3c009d;
+  border-radius: 9px;
+}
+
+/* Inputs container styling */
+.inputs {
+  margin-top: 55px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Individual input styling */
+.input {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  width: 480px;
+  height: 80px;
+  background: #eaeaea;
+  border-radius: 6px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Adding inner shadow for depth */
+}
+
+/* Input image styling */
+.input img {
+  margin: 0 30px;
+}
+
+/* Input field styling */
+.input input {
+  height: 50px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #797979;
+  font-size: 19px;
+}
+
+/* Submit container styling */
+.submit-container {
+  display: flex;
+  gap: 30px;
+  margin: 60px auto;
+}
+
+/* Submit button styling */
+.submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  height: 59px;
+  color: #ffffff;
+  background: #4c00b4;
+  border-radius: 50px;
+  font-size: 19px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Gray button styling */
+.gray {
+  background: #eaeaea;
+  color: #676767;
+}
+
+/* Toggle button styling */
+.toggle-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px; /* Adjusted width to better fit text */
+  height: 50px; /* Adjusted height for better fit */
+  color: #ffffff;
+  background: #4c00b4;
+  border-radius: 50px;
+  font-size: 16px; /* Adjusted font size */
+  font-weight: 700;
+  cursor: pointer;
+  margin-left: 20px; /* Adjusted margin */
+  padding: 10px 15px; /* Adjusted padding */
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflow if any */
+  text-overflow: ellipsis; /* Add ellipsis if text is too long */
+}
+
+/* Adjustments for overall look */
+body {
+  font-family: 'Arial', sans-serif; /* Use a clean, sans-serif font */
+  background-color: #f7f7f7; /* Light background color */
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #4c00b4;
+}
+
+nav .menu-item {
+  color: #ffffff;
+  margin: 0 15px;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+nav .menu-item:hover {
+  text-decoration: underline;
+}
+
+nav .welcome {
+  color: #ffffff;
+  font-size: 16px;
+}
+
+nav .button-container {
+  display: flex;
+  gap: 10px;
+}
+
+nav .button-container .btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  background-color: #007bff;
+  cursor: pointer;
+}
+
+nav .button-container .btn:hover {
+  background-color: #0056b3;
+}

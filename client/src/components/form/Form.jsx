@@ -1,35 +1,47 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './form.css';
+import { signin, signup } from '../../actions/auth.js';
+import { useDispatch } from 'react-redux';
 
 const Form = () => {
   const navigate = useNavigate();
   const [action, setAction] = useState("Sign Up");
-  const initialState = {name: '', email: '', password: ''};
+  const initialState = { name: '', email: '', password: '' };
   const [formData, setFormData] = useState(initialState);
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   };
 
-  const handleSignUp = () => {
-    console.log(formData);
-    alert("Signed up successfully");
-    setFormData({
-      name: '',
-      email: '',
-      password: ''
-    });
-    setAction("Login");
+  const handleSignUp = async () => {
+    const response = await dispatch(signup(formData, navigate));
+    if (response?.message) {
+      alert(response.message);
+    }
+    if (response?.result) {
+      setFormData(initialState);
+      setAction("Login");
+    }
   };
 
-  const handleLogin = () => {
-    alert("Logged in successfully");
-    navigate("/home");
+  const handleLogin = async () => {
+    const response = await dispatch(signin(formData, navigate));
+    if (response?.message) {
+      alert(response.message);
+    }
+    if (response?.result) {
+      navigate("/home");
+    }
+  };
+
+  const toggleAction = () => {
+    setAction((prevAction) => (prevAction === "Sign Up" ? "Login" : "Sign Up"));
   };
 
   return (
@@ -77,15 +89,28 @@ const Form = () => {
         
         <div className="submit-container">
           {action === "Sign Up" ? (
-            <div className="submit" onClick={handleSignUp}  >
+            <div className="submit" onClick={handleSignUp}>
               Sign Up
             </div>
           ) : (
-            <div className="submit" onClick={handleLogin}  >
+            <div className="submit" onClick={handleLogin}>
               Login
             </div>
           )}
         </div>
+
+        <div className="toggle-action">
+          {action === "Sign Up" ? (
+            <button className="toggle-button" onClick={toggleAction}>
+              Sign In
+            </button>
+          ) : (
+            <button className="toggle-button" onClick={toggleAction}>
+              Sign Up
+            </button>
+          )}
+        </div>
+        
       </div>
     </div>
   );

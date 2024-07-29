@@ -33,9 +33,11 @@ export const createPost = async (req, res) => {
 
     try {
         await newPostMessage.save();
+        console.log("post create ho gayi");
 
         res.status(201).json(newPostMessage );
     } catch (error) {
+        console.log("post create nahi ho paayi");
         res.status(409).json({ message: error.message });
     }
 }
