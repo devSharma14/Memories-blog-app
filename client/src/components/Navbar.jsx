@@ -7,10 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const Navbar = () => {
   let Links = [
-    { name: "HOME", link: "/home" },
-    { name: "SERVICE", link: "/" },
-    { name: "ABOUT", link: "/" },
-    { name: "CONTACT", link: "/" },
+    { name: "HOME", link: "/" },
+    { name: "POSTS", link: "/home" },
+    { name: "ABOUT", link: "/about" },
+    { name: "CONTACT", link: "/contact" },
   ];
   let [open, setOpen] = useState(false);
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Container, Card, CardContent, Typography, TextField, Button } from '@mui/material';
+import { Container, Card, CardContent, Typography, TextField, Button, Grid } from '@mui/material';
 import { createPost, updatePost, getUserPosts } from '../../actions/posts';
 import { useDispatch, useSelector } from 'react-redux';
 import FileBase from 'react-file-base64';
@@ -29,8 +29,7 @@ const CreatePost = ({ currentId, setCurrentId }) => {
     if (user?.result?._id) {
       dispatch(getUserPosts(user.result._id))
         .then((response) => {
-          // console.log('Received response:', response); 
-          if(response && Array.isArray(response)) {
+          if (response && Array.isArray(response)) {
             setUserPosts(response);
           } else {
             console.error("Unexpected response format", response);
@@ -59,6 +58,7 @@ const CreatePost = ({ currentId, setCurrentId }) => {
     e.preventDefault();
     if (currentId === 0) {
       dispatch(createPost(postData));
+      // console.log("user ka data: ", postData);
     } else {
       dispatch(updatePost(currentId, postData));
     }
@@ -67,16 +67,42 @@ const CreatePost = ({ currentId, setCurrentId }) => {
 
   return (
     <div className="create-post pt-20">
-      <Container>
+      <Container maxWidth="sm">
         <Card className="card">
           <CardContent>
-            <Typography variant="h5" component="h2">
+            <Typography variant="h5" component="h2" gutterBottom>
               {currentId ? `Editing "${post?.title}"` : 'Create Post'}
             </Typography>
             <form onSubmit={handleSubmit}>
-              <TextField label="Creator Name" name="creator" value={postData.creator} onChange={handleChange} margin="normal" fullWidth />
-              <TextField label="Title" name="title" value={postData.title} onChange={handleChange} margin="normal" fullWidth />
-              <TextField label="Description" name="description" value={postData.description} onChange={handleChange} margin="normal" fullWidth multiline rows={4} />
+              <TextField
+                label="Creator Name"
+                name="creator"
+                value={postData.creator}
+                onChange={handleChange}
+                margin="normal"
+                fullWidth
+                variant="outlined"
+              />
+              <TextField
+                label="Title"
+                name="title"
+                value={postData.title}
+                onChange={handleChange}
+                margin="normal"
+                fullWidth
+                variant="outlined"
+              />
+              <TextField
+                label="Description"
+                name="description"
+                value={postData.description}
+                onChange={handleChange}
+                margin="normal"
+                fullWidth
+                multiline
+                rows={4}
+                variant="outlined"
+              />
               <div style={{ margin: '20px 0' }}>
                 <FileBase type="file" multiple={false} onDone={handleFileChange} />
               </div>
@@ -91,34 +117,39 @@ const CreatePost = ({ currentId, setCurrentId }) => {
         </Card>
       </Container>
 
-      <h1 className='text-4xl mt-2 mb-4 md:text-purple-400'>My Posts:</h1>
-      <Container className="posts-container">
-        {userPosts.length > 0 ? (
-          userPosts.map((post) => (
-            <Card key={post._id} className="post-card">
-              <CardContent>
-                <Typography variant="h5" component="h2">
-                  {post.title}
-                </Typography>
-                <Typography variant="body2" component="p">
-                  {post.description}
-                </Typography>
-                {post.selectedFile && (
-                  <img src={post.selectedFile} alt={post.title} className="post-image" />
-                )}
-              </CardContent>
-            </Card>
-          ))
-        ) : (
-          <Typography variant="body2" component="p">
-            No posts available.
-          </Typography>
-        )}
+      <Container className="posts-container" maxWidth="lg">
+        <Typography variant="h4" component="h1" gutterBottom className="posts-heading">
+          My Posts:
+        </Typography>
+        <Grid container spacing={2}>
+          {userPosts.length > 0 ? (
+            userPosts.map((post) => (
+              <Grid key={post._id} item xs={12} sm={6} md={4} lg={3}>
+                <Card className="post-card">
+                  <CardContent>
+                    <Typography variant="h6" component="h2">
+                      {post.title}
+                    </Typography>
+                    <Typography variant="body2">
+                      {post.description}
+                    </Typography>
+                    {post.selectedFile && (
+                      <img src={post.selectedFile} alt={post.title} className="post-image" />
+                    )}
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))
+          ) : (
+            <Grid item xs={12}>
+              <Typography variant="body2">
+                No posts available.
+              </Typography>
+            </Grid>
+          )}
+        </Grid>
       </Container>
-
-
     </div>
-
   );
 };
 

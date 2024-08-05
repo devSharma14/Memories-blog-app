@@ -14,11 +14,13 @@ const Container = styled(Grid)(({ theme }) => ({
 
 const Home = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.posts);
+  const posts = useSelector((state) => state.posts.posts); // Access posts array from the state
 
   useEffect(() => {
     dispatch(getPosts());
   }, [currentId, dispatch]);
+
+  if (!Array.isArray(posts)) return null; // Handle cases where posts might not be an array
 
   return (
     <div className="pt-20">

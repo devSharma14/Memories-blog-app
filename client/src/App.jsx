@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Form from './components/form/Form';
 import CreatePost from './components/create/CreatePost';
 import Landing from './components/Landing';
+import PostDetails from './components/PostDetails';
 
 const App = () => {
   const [currentId, setCurrentId] = useState(0);
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/home" element={<Home currentId={currentId} setCurrentId={setCurrentId} />} />
         <Route path="/form" element={<Form />} />
         <Route path="/createPost" element={<CreatePost currentId={currentId} setCurrentId={setCurrentId} />} />
+        <Route path="/posts/:id" element={<PostDetails />} />
       </Routes>
     </BrowserRouter>
   );

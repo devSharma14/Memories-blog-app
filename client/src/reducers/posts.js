@@ -1,21 +1,39 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE , FETCH_USER_POSTS } from "../constants/actionTypes";
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_USER_POSTS, FETCH_POST, START_LOADING, END_LOADING } from "../constants/actionTypes";
 
-const postsReducer = (posts = [], action) => {
+const initialState = {
+  posts: [],
+  currentPost: null,
+  isLoading: false,
+};
+
+const postsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case START_LOADING:
+      return { ...state, isLoading: true };
+    case END_LOADING:
+      return { ...state, isLoading: false };
     case FETCH_ALL:
-      return action.payload;
+      return { ...state, posts: action.payload, isLoading: false };
     case LIKE:
-      return posts.map((post) => (post._id === action.payload._id ? action.payload : post));
+      return {
+        ...state,
+        posts: state.posts.map((post) => (post._id === action.payload._id ? action.payload : post)),
+      };
     case CREATE:
-      return [...posts, action.payload]; 
+      return { ...state, posts: [...state.posts, action.payload] };
     case UPDATE:
-      return posts.map((post) => (post._id === action.payload._id ? action.payload : post)); 
+      return {
+        ...state,
+        posts: state.posts.map((post) => (post._id === action.payload._id ? action.payload : post)),
+      };
     case DELETE:
-      return posts.filter((post) => post._id !== action.payload); 
+      return { ...state, posts: state.posts.filter((post) => post._id !== action.payload) };
     case FETCH_USER_POSTS:
-      return action.payload;
+      return { ...state, posts: action.payload, isLoading: false };
+    case FETCH_POST:
+      return { ...state, currentPost: action.payload, isLoading: false };
     default:
-      return posts; 
+      return state;
   }
 };
 

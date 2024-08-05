@@ -32,25 +32,30 @@ const Post = ({ post, setCurrentId }) => {
             });
     };
 
+    const handleCardClick = () => {
+        navigate(`/posts/${post._id}`);
+    };
+
     return (
-        <Card className="card">
+        <Card className="card" onClick={handleCardClick}>
             <CardMedia
                 image={post.selectedFile}
                 title={post.title}
                 className="cardMedia"
             />
-
             <CardHeader
                 subheader={"Created " + moment(post.createdAt).fromNow()}
                 className="cardHeader"
             />
-
             <CardActions className="cardActions">
                 <Button
                     size="small"
                     color="primary"
                     disabled={!user?.result}
-                    onClick={() => dispatch(likePost(post._id))}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        dispatch(likePost(post._id));
+                    }}
                     className="likeButton"
                 >
                     <Likes />
