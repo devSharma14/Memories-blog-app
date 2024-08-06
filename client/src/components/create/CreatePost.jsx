@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react';
-import { Container, Card, CardContent, Typography, TextField, Button, Grid } from '@mui/material';
-import { createPost, updatePost, getUserPosts } from '../../actions/posts';
+import { Container, Card, CardContent, Typography, TextField, Button, Grid, CardHeader, CardMedia } from '@mui/material';
+import { createPost, updatePost, getUserPosts,deletePost } from '../../actions/posts';
 import { useDispatch, useSelector } from 'react-redux';
 import FileBase from 'react-file-base64';
 import './createPost.css';
+import moment from 'moment';
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 const CreatePost = ({ currentId, setCurrentId }) => {
   const initialState = {
-    creator: '',
     title: '',
+    creator: '',
     description: '',
     selectedFile: null,
   };
@@ -22,6 +25,7 @@ const CreatePost = ({ currentId, setCurrentId }) => {
   useEffect(() => {
     if (post) {
       setPostData(post);
+
     }
   }, [post]);
 
@@ -66,9 +70,9 @@ const CreatePost = ({ currentId, setCurrentId }) => {
   };
 
   return (
-    <div className="create-post pt-20">
+    <div className="pt-40">
       <Container maxWidth="sm">
-        <Card className="card">
+        <Card className="form">
           <CardContent>
             <Typography variant="h5" component="h2" gutterBottom>
               {currentId ? `Editing "${post?.title}"` : 'Create Post'}
@@ -117,6 +121,7 @@ const CreatePost = ({ currentId, setCurrentId }) => {
         </Card>
       </Container>
 
+      {/* users ki posts mapping */}
       <Container className="posts-container" maxWidth="lg">
         <Typography variant="h4" component="h1" gutterBottom className="posts-heading">
           My Posts:
@@ -125,18 +130,20 @@ const CreatePost = ({ currentId, setCurrentId }) => {
           {userPosts.length > 0 ? (
             userPosts.map((post) => (
               <Grid key={post._id} item xs={12} sm={6} md={4} lg={3}>
-                <Card className="post-card">
-                  <CardContent>
-                    <Typography variant="h6" component="h2">
-                      {post.title}
-                    </Typography>
-                    {/* <Typography variant="body2">
-                      {post.description}
-                    </Typography> */}
-                    {post.selectedFile && (
-                      <img src={post.selectedFile} alt={post.title} className="post-image" />
-                    )}
-                  </CardContent>
+                <Card className="card">
+                  <CardHeader
+                    title={post.title}
+                    subheader={"Created " + moment(post.createdAt).fromNow()}
+                  />
+                  <CardMedia
+                    component="img"
+                    image={post.selectedFile}
+                    className="images"
+                  />
+                  <div className="cardActions">
+                    <FaEdit className='button left-button' />
+                    <MdDelete className='button right-button' onClick={() => dispatch(deletePost(post._id))} />
+                  </div>
                 </Card>
               </Grid>
             ))
@@ -149,6 +156,7 @@ const CreatePost = ({ currentId, setCurrentId }) => {
           )}
         </Grid>
       </Container>
+
     </div>
   );
 };

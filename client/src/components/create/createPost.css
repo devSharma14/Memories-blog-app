@@ -1,12 +1,11 @@
-.create-post {
-  padding-top: 20px;
-}
-
 .card {
-  padding: 20px;
-  margin-bottom: 20px;
-  height: 550px;
-
+  max-width: 500px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
 }
 
 .posts-container {
@@ -14,29 +13,49 @@
 }
 
 .posts-heading {
-  color: #161617; /* Adjust color as needed */
+  color: #030303;
   margin-bottom: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.post-card {
-  background-color: #393e42; /* Match the card background color */
-  border-radius: 16px; /* Rounded corners for a modern look */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition effects */
-  cursor: pointer; /* Pointer cursor to indicate interactivity */
-  height: 250px; /* Ensure cards take full available height */
-  /* width: 300px; */
+.posts-container {
+  background-color: #b1b7bb;
+  border-radius: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  height: 100%;
 }
 
-.post-card:hover {
-  transform: scale(1.05); /* Slightly scale up on hover */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
-.post-image {
-  width: 100%; /* Make image cover the full width */
-  height: 150px; /* Fixed height for images */
-  object-fit: cover; /* Ensure image covers the area */
-  border-radius: 8px; /* Rounded corners for the image */
-  margin-bottom: 10px; /* Space between image and text */
+.images {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.cardActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.button {
+  font-size: 30px;
+}
+
+.left-button {
+  margin-left: 10px;
+}
+
+.right-button {
+  margin-right: 10px;
 }
