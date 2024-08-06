@@ -1,4 +1,4 @@
-import { Button, Card, CardMedia, CardHeader, CardActions } from '@mui/material';
+import { Button, Card, CardMedia, CardHeader, CardActions, Typography, Avatar, CardContent } from '@mui/material';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpAltOutlined from '@mui/icons-material/ThumbUpAltOutlined';
 import moment from 'moment';
@@ -38,14 +38,14 @@ const Post = ({ post, setCurrentId }) => {
 
     return (
         <Card className="card" onClick={handleCardClick}>
-            <CardMedia
-                image={post.selectedFile}
-                title={post.title}
-                className="cardMedia"
-            />
             <CardHeader
+                title={post.title}
                 subheader={"Created " + moment(post.createdAt).fromNow()}
-                className="cardHeader"
+            />
+            <CardMedia
+                component="img"
+                image={post.selectedFile}
+                className="MuiCardMedia-root" // Apply CSS class for media
             />
             <CardActions className="cardActions">
                 <Button

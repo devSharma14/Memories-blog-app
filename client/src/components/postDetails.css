@@ -1,32 +1,40 @@
-.postDetailsCard {
-    max-width: 800px;
-    margin: auto;
-    margin-top: 50px;
+.paper {
     padding: 20px;
     border-radius: 15px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-}
-
-.postDetailsImage {
-    max-height: 400px;
-    width: 100%;
+  }
+  
+  .post-details-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .left-section {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .right-section {
+    flex: 1;
+    max-width: 50%;
+  }
+  
+  .media {
+    border-radius: 20px;
     object-fit: cover;
-    border-radius: 15px 15px 0 0;
-}
-
-.postDetailsContent {
-    padding: 20px;
-}
-
-.postDetailsContent h5 {
-    margin-bottom: 20px;
-}
-
-.postDetailsContent p {
-    margin-top: 20px;
-}
-
-.postDetailsContent .MuiTypography-body2 {
-    color: gray;
-    margin-bottom: 20px;
-}
+    width: 100%;
+    max-height: 600px;
+  }
+  
+  @media (max-width: 600px) {
+    .post-details-container {
+      flex-direction: column;
+    }
+  
+    .left-section,
+    .right-section {
+      margin: 0;
+      max-width: 100%;
+    }
+  }
+  

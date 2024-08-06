@@ -130,9 +130,9 @@ const CreatePost = ({ currentId, setCurrentId }) => {
                     <Typography variant="h6" component="h2">
                       {post.title}
                     </Typography>
-                    <Typography variant="body2">
+                    {/* <Typography variant="body2">
                       {post.description}
-                    </Typography>
+                    </Typography> */}
                     {post.selectedFile && (
                       <img src={post.selectedFile} alt={post.title} className="post-image" />
                     )}
