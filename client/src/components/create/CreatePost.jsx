@@ -10,8 +10,8 @@ import { MdDelete } from "react-icons/md";
 
 const CreatePost = ({ currentId, setCurrentId }) => {
   const initialState = {
-    title: '',
     creator: '',
+    title: '',
     description: '',
     selectedFile: null,
   };
@@ -62,7 +62,7 @@ const CreatePost = ({ currentId, setCurrentId }) => {
     e.preventDefault();
     if (currentId === 0) {
       dispatch(createPost(postData));
-      // console.log("user ka data: ", postData);
+      console.log("user ka data: ", postData);
     } else {
       dispatch(updatePost(currentId, postData));
     }
@@ -79,7 +79,7 @@ const CreatePost = ({ currentId, setCurrentId }) => {
             </Typography>
             <form onSubmit={handleSubmit}>
               <TextField
-                label="Creator Name"
+                label="Founder Name"
                 name="creator"
                 value={postData.creator}
                 onChange={handleChange}

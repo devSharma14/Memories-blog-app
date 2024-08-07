@@ -7,6 +7,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import { thunk } from 'redux-thunk';
 import { reducers } from './reducers';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const store = configureStore({
   reducer: reducers,
@@ -21,6 +23,7 @@ root.render(
       >
         <Provider store={store}>
           <App />
+          <ToastContainer/>
         </Provider>
       </GoogleOAuthProvider>
 

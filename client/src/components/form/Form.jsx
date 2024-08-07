@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './form.css';
 import { signin, signup } from '../../actions/auth.js';
 import { useDispatch } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Form = () => {
   const navigate = useNavigate();
@@ -22,23 +24,31 @@ const Form = () => {
   const handleSignUp = async () => {
     const response = await dispatch(signup(formData, navigate));
     if (response?.message) {
-      alert(response.message);
+      toast.error(response.message); // Display error message using toast
     }
     if (response?.result) {
       setFormData(initialState);
       setAction("Login");
+      toast.success("User registered successfully"); // Display success message using toast
     }
   };
 
   const handleLogin = async () => {
     const response = await dispatch(signin(formData, navigate));
-    if (response?.message) {
-      alert(response.message);
+    
+    if (response?.message && response.message !== "User logged in successfully") {
+      toast.error(response.message);
     }
+    
     if (response?.result) {
-      navigate("/home");
+      toast.success(response.message);
+      setTimeout(() => {
+        navigate("/home");
+      }, 6000); 
     }
   };
+  
+  
 
   const toggleAction = () => {
     setAction((prevAction) => (prevAction === "Sign Up" ? "Login" : "Sign Up"));
@@ -98,6 +108,7 @@ const Form = () => {
             </div>
           )}
         </div>
+        <ToastContainer />
 
         <div className="toggle-action">
           {action === "Sign Up" ? (
@@ -110,8 +121,8 @@ const Form = () => {
             </button>
           )}
         </div>
-        
       </div>
+     
     </div>
   );
 };

@@ -6,8 +6,8 @@ export const signin = (formData, navigate) => async (dispatch) => {
     const { data } = await api.signIn(formData);
     dispatch({ type: AUTH, data });
     localStorage.setItem('profile', JSON.stringify({ ...data }));
-    navigate("/home");
     return data;  // jo backend se message aayega vo return ho jayega to the front end
+    // navigate("/home");
   } catch (error) {
     console.log(error);
     return error.response.data;
