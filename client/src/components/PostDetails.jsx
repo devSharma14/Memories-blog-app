@@ -28,7 +28,10 @@ const PostDetails = () => {
         <div className="left-section">
           <Typography variant="h3" component="h2">{post.title}</Typography>
           <Divider style={{ margin: '20px 0' }} />
-          <Typography variant="body1">Created by: {post.creator}</Typography>
+          <Typography variant="body1">
+  Created by: {post.name ? post.name : 'Unknown'}
+</Typography>
+
           <Typography variant="body1">{new Date(post.createdAt).toLocaleString()}</Typography>
           <Divider style={{ margin: '20px 0' }} />
           <img className="media" src={post.selectedFile} alt={post.title} />

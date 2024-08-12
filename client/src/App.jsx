@@ -14,10 +14,13 @@ const App = () => {
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Landing/>}/>
+        <Route path="/" element={<Landing />} />
         <Route path="/home" element={<Home currentId={currentId} setCurrentId={setCurrentId} />} />
-        <Route path="/form" element={<Form />} />
+        {/* Ensure Form component handles or uses currentId if needed */}
+        <Route path="/form" element={<Form currentId={currentId} setCurrentId={setCurrentId} />} />
+        {/* Ensure CreatePost component handles or uses currentId if needed */}
         <Route path="/createPost" element={<CreatePost currentId={currentId} setCurrentId={setCurrentId} />} />
+        {/* Dynamic route handling for PostDetails */}
         <Route path="/posts/:id" element={<PostDetails />} />
       </Routes>
     </BrowserRouter>

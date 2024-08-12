@@ -8,7 +8,6 @@ const authReducer = (state = { authData: null }, action) => {
       return { ...state, authData: action.data, loading: true, errors: null };
     case actionType.LOGOUT:
       localStorage.removeItem('profile');
-
       return { ...state, authData: null, loading: true, errors: null };
     default:
       return state;

@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Card, CardContent, Typography, TextField, Button, Grid, CardHeader, CardMedia } from '@mui/material';
-import { createPost, updatePost, getUserPosts,deletePost } from '../../actions/posts';
+import { createPost, updatePost, getUserPosts, deletePost } from '../../actions/posts';
 import { useDispatch, useSelector } from 'react-redux';
 import FileBase from 'react-file-base64';
 import './createPost.css';
@@ -11,6 +11,7 @@ import { MdDelete } from "react-icons/md";
 const CreatePost = ({ currentId, setCurrentId }) => {
   const initialState = {
     creator: '',
+    name: '',
     title: '',
     description: '',
     selectedFile: null,
@@ -18,14 +19,21 @@ const CreatePost = ({ currentId, setCurrentId }) => {
 
   const [postData, setPostData] = useState(initialState);
   const [userPosts, setUserPosts] = useState([]);
-  const post = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));
+  
+  const post = useSelector((state) => {
+    return currentId && Array.isArray(state.posts)
+      ? state.posts.find((message) => message._id === currentId)
+      : null;
+  });
+  
   const user = JSON.parse(localStorage.getItem('profile'));
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (post) {
       setPostData(post);
-
+    } else {
+      setPostData(initialState);
     }
   }, [post]);
 
@@ -43,9 +51,10 @@ const CreatePost = ({ currentId, setCurrentId }) => {
           console.error("Failed to fetch user posts", error);
         });
     }
-  }, [user, dispatch]);
+  }, [user?.result?._id, dispatch]);
 
   const clear = () => {
+    setCurrentId(0);
     setPostData(initialState);
   };
 
@@ -58,16 +67,24 @@ const CreatePost = ({ currentId, setCurrentId }) => {
     setPostData((prevData) => ({ ...prevData, selectedFile: base64 }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const updatedPostData = {
+        ...postData,
+        creator: user?.result?._id,
+    };
+
     if (currentId === 0) {
-      dispatch(createPost(postData));
-      console.log("user ka data: ", postData);
+        await dispatch(createPost(updatedPostData));
     } else {
-      dispatch(updatePost(currentId, postData));
+        await dispatch(updatePost(currentId, updatedPostData));
     }
+
+    dispatch(getUserPosts(user.result._id)); // Re-fetch user posts to update the state
     clear();
-  };
+};
+
 
   return (
     <div className="pt-40">
@@ -79,9 +96,9 @@ const CreatePost = ({ currentId, setCurrentId }) => {
             </Typography>
             <form onSubmit={handleSubmit}>
               <TextField
-                label="Founder Name"
-                name="creator"
-                value={postData.creator}
+                label="Your name"
+                name="name"
+                value={postData.name}
                 onChange={handleChange}
                 margin="normal"
                 fullWidth
@@ -111,7 +128,7 @@ const CreatePost = ({ currentId, setCurrentId }) => {
                 <FileBase type="file" multiple={false} onDone={handleFileChange} />
               </div>
               <Button type="submit" variant="contained" color="primary" style={{ marginRight: '10px' }}>
-                Submit
+                {currentId ? 'Update' : 'Submit'}
               </Button>
               <Button variant="contained" color="secondary" onClick={clear}>
                 Clear
@@ -121,7 +138,6 @@ const CreatePost = ({ currentId, setCurrentId }) => {
         </Card>
       </Container>
 
-      {/* users ki posts mapping */}
       <Container className="posts-container" maxWidth="lg">
         <Typography variant="h4" component="h1" gutterBottom className="posts-heading">
           My Posts:
@@ -141,7 +157,10 @@ const CreatePost = ({ currentId, setCurrentId }) => {
                     className="images"
                   />
                   <div className="cardActions">
-                    <FaEdit className='button left-button' />
+                    <FaEdit
+                      className='button left-button'
+                      onClick={() => setCurrentId(post._id)}
+                    />
                     <MdDelete className='button right-button' onClick={() => dispatch(deletePost(post._id))} />
                   </div>
                 </Card>
@@ -156,7 +175,6 @@ const CreatePost = ({ currentId, setCurrentId }) => {
           )}
         </Grid>
       </Container>
-
     </div>
   );
 };
