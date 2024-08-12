@@ -62,6 +62,7 @@ const CreatePost = ({ currentId, setCurrentId }) => {
     const { name, value } = e.target;
     setPostData((prevData) => ({ ...prevData, [name]: value }));
   };
+  
 
   const handleFileChange = ({ base64 }) => {
     setPostData((prevData) => ({ ...prevData, selectedFile: base64 }));
@@ -69,7 +70,7 @@ const CreatePost = ({ currentId, setCurrentId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log('Submitting post data:', postData);
     const updatedPostData = {
         ...postData,
         creator: user?.result?._id,
@@ -92,7 +93,7 @@ const CreatePost = ({ currentId, setCurrentId }) => {
         <Card className="form">
           <CardContent>
             <Typography variant="h5" component="h2" gutterBottom>
-              {currentId ? `Editing "${post?.title}"` : 'Create Post'}
+              {currentId ? `Editing the post: "` : 'Create Post'}
             </Typography>
             <form onSubmit={handleSubmit}>
               <TextField

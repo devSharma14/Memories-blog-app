@@ -44,24 +44,18 @@ export const createPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
     const { id } = req.params;
-    const { title, message, creator, selectedFile, tags } = req.body;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
-
-    try {
-        const post = await PostMessage.findById(id);
-        if (!post) return res.status(404).send(`No post with id: ${id}`);
-
-        if (post.creator !== req.userId) return res.status(403).send('You are not authorized to update this post');
-
-        const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
-        const newPost = await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
-
-        res.json(newPost);
-    } catch (error) {
-        res.status(409).json({ message: error.message });
-    }
-};
+    console.log('Received postData in backend:', req.body);
+    const { title, description, selectedFile, name } = req.body;
+  
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No post with that id');
+  
+    const updatedPost = { title, description, selectedFile, name, _id: id };
+  
+    const result = await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
+  
+    res.json(result);
+  };
+  
 
 export const deletePost = async (req, res) => {
     const { id } = req.params;
