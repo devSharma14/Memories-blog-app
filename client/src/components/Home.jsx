@@ -4,7 +4,6 @@ import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { getPosts } from '../actions/posts';
 import Post from './post/Post';
-
 const Container = styled(Grid)(({ theme }) => ({
   display: 'flex',
   alignItems: 'stretch',
@@ -14,13 +13,13 @@ const Container = styled(Grid)(({ theme }) => ({
 
 const Home = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.posts.posts); // Access posts array from the state
+  const posts = useSelector((state) => state.posts.posts); 
 
   useEffect(() => {
     dispatch(getPosts());
   }, [currentId, dispatch]);
 
-  if (!Array.isArray(posts)) return null; // Handle cases where posts might not be an array
+  if (!Array.isArray(posts)) return null; 
 
   return (
     <div className="pt-20">

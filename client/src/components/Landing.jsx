@@ -72,16 +72,16 @@ const Landing = () => {
         <div className="container mx-auto text-center bg-gray-800 md:text-white">
           <p>&copy; 2024 Memories. Created by Dev Sharma.</p>
           <div className="flex justify-center space-x-6 mt-4">
-            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <a href="https://www.instagram.com/dev_s14" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <FontAwesomeIcon icon={faInstagram} className="text-white hover:text-gray-400" size="2x" />
             </a>
-            <a href="mailto:example@example.com" aria-label="Email">
+            <a href="mailto:devs140124@gmail.com" aria-label="Email">
               <FontAwesomeIcon icon={faEnvelope} className="text-white hover:text-gray-400" size="2x" />
             </a>
-            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/dev-sharma-7ba864270/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
               <FontAwesomeIcon icon={faLinkedin} className="text-white hover:text-gray-400" size="2x" />
             </a>
-            <a href="https://www.github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <a href="https://github.com/devSharma14/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
               <FontAwesomeIcon icon={faGithub} className="text-white hover:text-gray-400" size="2x" />
             </a>
           </div>
