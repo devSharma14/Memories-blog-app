@@ -49,7 +49,7 @@ const Form = () => {
   };
   
   
-
+//D8B4FE
   const toggleAction = () => {
     setAction((prevAction) => (prevAction === "Sign Up" ? "Login" : "Sign Up"));
   };
@@ -113,7 +113,7 @@ const Form = () => {
         <div className="toggle-action">
           {action === "Sign Up" ? (
             <button className="toggle-button" onClick={toggleAction}>
-              Sign In
+              Already have an account? Sign In
             </button>
           ) : (
             <button className="toggle-button" onClick={toggleAction}>

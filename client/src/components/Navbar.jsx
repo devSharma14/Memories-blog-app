@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BookOpenIcon, Bars3BottomRightIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { Link, useNavigate } from 'react-router-dom';
-import {jwtDecode} from 'jwt-decode';
+import jwtDecode from 'jwt-decode'; // Ensure correct import
 import * as actionType from '../constants/actionTypes';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -20,19 +20,18 @@ const Navbar = () => {
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('profile'));
-    if(storedUser) {
+    if (storedUser) {
       dispatch({ type: actionType.AUTH, data: storedUser });
     }
   }, [dispatch]);
 
   useEffect(() => {
     const token = user?.token;
-    console.log("token received: ", token);
-    if(token) {
+    if (token) {
       try {
         const decodedToken = jwtDecode(token);
 
-        if(decodedToken.exp * 1000 < new Date().getTime()) {
+        if (decodedToken.exp * 1000 < new Date().getTime()) {
           dispatch({ type: actionType.LOGOUT });
           navigate('/');
         }
@@ -57,7 +56,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="shadow-md w-full fixed top-0 left-0">
+    <div className="shadow-md w-full fixed top-0 left-0 z-50">
       <div className="md:flex items-center justify-between bg-white py-4 md:px-10 px-7">
         <div className="font-bold text-2xl cursor-pointer flex items-center gap-1">
           <BookOpenIcon className="w-7 h-7 text-blue-600" />
@@ -68,7 +67,9 @@ const Navbar = () => {
           {open ? <XMarkIcon /> : <Bars3BottomRightIcon />}
         </div>
 
-        <ul className={`md:flex md:items-center md:pb-0 pb-12 absolute md:static bg-white md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${open ? 'top-12' : 'top-[-490px]'}`}>
+        <ul
+          className={`md:flex md:items-center md:pb-0 pb-12 fixed md:static bg-white md:z-auto z-50 left-0 w-full md:w-auto transition-all duration-500 ease-in ${open ? 'top-0 h-screen opacity-100' : 'top-[-100%] h-0 opacity-0'}`}
+        >
           {Links.map((link, index) => (
             <li key={index} className="md:ml-8 md:my-0 my-7 font-semibold">
               <Link to={link.link} className="text-gray-800 hover:text-blue-400 duration-500">{link.name}</Link>

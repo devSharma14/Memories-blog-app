@@ -1,3 +1,17 @@
+.form {
+  border-radius: 8rem;
+}
+
+.customTypography {
+  font-family: 'Poppins', sans-serif; /* Use 'Poppins' or another stylish font */
+  font-size: 60px;
+  font-weight: bold;
+  color: #1a1818; /* Darker color for better readability */
+  text-align: center; /* Center the text */
+  margin-bottom: 20px; /* Add some space below the text */
+}
+
+
 .card {
   max-width: 500px;
   height: 600px;
@@ -19,7 +33,7 @@
 }
 
 .posts-container {
-  background-color: #b1b7bb;
+  background-color: #cfd1d2;
   border-radius: 16px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
@@ -50,6 +64,7 @@
 
 .button {
   font-size: 30px;
+  background-color: #f2eaf4;
 }
 
 .left-button {

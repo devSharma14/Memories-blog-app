@@ -1,0 +1,15 @@
+@media (max-width: 768px) {
+    .md:flex {
+      flex-direction: column;
+      height: 100vh;
+    }
+  }
+  
+  .main-content {
+    transition: transform 0.5s ease-in;
+  }
+  
+  .open-navbar {
+    transform: translateY(100%);
+  }
+  

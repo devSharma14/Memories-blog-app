@@ -7,7 +7,7 @@ const Landing = () => {
   return (
     <main className="bg-gray-100">
       {/* Hero Section */}
-      <div className='bg-[url("/hero.jpg")] h-[500px] md:h-[500px] w-full flex flex-col items-center justify-center text-center bg-cover bg-center'>
+      <div className='bg-[url("/upper_bg.jpg")] h-[500px] md:h-[500px] w-full flex flex-col items-center justify-center text-center bg-cover bg-center'>
         <h2 className="text-7xl md:text-6xl lg:text-8xl text-slate-300 mb-4">Welcome to</h2>
         <h2 className="text-7xl md:text-6xl lg:text-8xl text-purple-300 font-bold font-Aclonica">
           Memories
@@ -18,7 +18,7 @@ const Landing = () => {
       </div>
 
       {/* Why Choose Memories Section */}
-      <section className='py-16 px-4 text-center font-sans bg-cover bg-center' style={{ backgroundImage: 'url(/container_bg.jpg)' }}>
+      <section className='py-16 px-4 text-center font-sans bg-cover bg-center' style={{ backgroundImage: 'url(/temp_bg.avif)' }}>
         <div className="container mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-slate-600">
             Why Choose Memories

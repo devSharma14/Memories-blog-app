@@ -7,6 +7,8 @@ import './createPost.css';
 import moment from 'moment';
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreatePost = ({ currentId, setCurrentId }) => {
   const initialState = {
@@ -19,13 +21,13 @@ const CreatePost = ({ currentId, setCurrentId }) => {
 
   const [postData, setPostData] = useState(initialState);
   const [userPosts, setUserPosts] = useState([]);
-  
+
   const post = useSelector((state) => {
     return currentId && Array.isArray(state.posts)
       ? state.posts.find((message) => message._id === currentId)
       : null;
   });
-  
+
   const user = JSON.parse(localStorage.getItem('profile'));
   const dispatch = useDispatch();
 
@@ -62,7 +64,6 @@ const CreatePost = ({ currentId, setCurrentId }) => {
     const { name, value } = e.target;
     setPostData((prevData) => ({ ...prevData, [name]: value }));
   };
-  
 
   const handleFileChange = ({ base64 }) => {
     setPostData((prevData) => ({ ...prevData, selectedFile: base64 }));
@@ -70,30 +71,73 @@ const CreatePost = ({ currentId, setCurrentId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Submitting post data:', postData);
-    const updatedPostData = {
-        ...postData,
-        creator: user?.result?._id,
-    };
-
-    if (currentId === 0) {
-        await dispatch(createPost(updatedPostData));
-    } else {
-        await dispatch(updatePost(currentId, updatedPostData));
+    const updatedPostData = { ...postData, creator: user?.result?._id };
+    try {
+      if (currentId === 0) {
+        const response = await dispatch(createPost(updatedPostData));
+        if (response?.message) {
+          console.error('Error creating post:', response.message);
+          toast.error(response.message, { autoClose: 6000 });
+        } else {
+          console.log('Post created successfully');
+          toast.success('Post created successfully', { autoClose: 6000 });
+        }
+      } else {
+        const response = await dispatch(updatePost(currentId, updatedPostData));
+        if (response?.message) {
+          console.error('Error updating post:', response.message);
+          toast.error(response.message, { autoClose: 6000 });
+        } else {
+          console.log('Post updated successfully');
+          toast.success('Post updated successfully', { autoClose: 6000 });
+        }
+      }
+      dispatch(getUserPosts(user.result._id));
+      clear();
+    } catch (error) {
+      console.error('Failed to submit post:', error);
+      toast.error('Failed to submit post', { autoClose: 6000 });
+    } finally {
+      // Delay the page reload to match the toast duration
+      setTimeout(() => {
+        window.location.reload();
+      }, 6000); // 6000 ms = 6 seconds
     }
+  };
 
-    dispatch(getUserPosts(user.result._id)); // Re-fetch user posts to update the state
-    clear();
-};
-
+  const handleDelete = async (id) => {
+    try {
+      const response = await dispatch(deletePost(id));
+      if (response?.message) {
+        console.error('Error deleting post:', response.message);
+        toast.error(response.message, { autoClose: 6000 });
+      } else {
+        console.log('Post deleted successfully');
+        toast.success('Post deleted successfully', { autoClose: 6000 });
+      }
+    } catch (error) {
+      console.error('Failed to delete post:', error);
+      toast.error('Failed to delete post', { autoClose: 6000 });
+    } finally {
+      // Delay the page reload to match the toast duration
+      setTimeout(() => {
+        window.location.reload();
+      }, 6000); // 6000 ms = 6 seconds
+    }
+  };
 
   return (
     <div className="pt-40">
       <Container maxWidth="sm">
         <Card className="form">
           <CardContent>
-            <Typography variant="h5" component="h2" gutterBottom>
-              {currentId ? `Editing the post: "` : 'Create Post'}
+            <Typography
+              className="font-poppins text-8xl font-bold text-gray-800 text-center mb-5"
+              variant="h5"
+              component="h2"
+              gutterBottom
+            >
+              {currentId ? `Editing the post: ` : 'Create Post'}
             </Typography>
             <form onSubmit={handleSubmit}>
               <TextField
@@ -162,7 +206,10 @@ const CreatePost = ({ currentId, setCurrentId }) => {
                       className='button left-button'
                       onClick={() => setCurrentId(post._id)}
                     />
-                    <MdDelete className='button right-button' onClick={() => dispatch(deletePost(post._id))} />
+                    <MdDelete
+                      className='button right-button'
+                      onClick={() => handleDelete(post._id)}
+                    />
                   </div>
                 </Card>
               </Grid>
@@ -175,6 +222,7 @@ const CreatePost = ({ currentId, setCurrentId }) => {
             </Grid>
           )}
         </Grid>
+        <ToastContainer />
       </Container>
     </div>
   );
