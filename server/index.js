@@ -9,6 +9,9 @@ import userRouter from './routes/user.js';
 // Initialize app
 const app = express();
 
+app.use("/",(req,res)=> {
+  res.send("Server is successfully deployed");
+});
 app.use(express.json({ limit: '30mb', extended: true }));
 app.use(express.urlencoded({ limit: '30mb', extended: true }));
 
