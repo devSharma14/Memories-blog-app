@@ -22,7 +22,10 @@ const Home = ({ currentId, setCurrentId }) => {
   if (!Array.isArray(posts)) return null; 
 
   return (
-    <div className="pt-20">
+    <div className="pt-80">
+      <h1 style={{ fontWeight: 'bold', fontSize: '2em', marginBottom: '20px' , marginLeft: '20px' }}>
+      Users' Posts:
+    </h1>
       <Container>
         <Grid container spacing={2}>
           {posts.map((post) => (

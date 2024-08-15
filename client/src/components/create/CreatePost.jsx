@@ -204,7 +204,10 @@ const CreatePost = ({ currentId, setCurrentId }) => {
                   <div className="cardActions">
                     <FaEdit
                       className='button left-button'
-                      onClick={() => setCurrentId(post._id)}
+                      onClick={() => {
+                        toast.success("You can now edit");
+                        setCurrentId(post._id);
+                      }}
                     />
                     <MdDelete
                       className='button right-button'

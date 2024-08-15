@@ -79,7 +79,7 @@
   width: 200px; /* Reduced width */
   height: 50px; /* Adjusted height */
   color: #030202;
-  background: #dc80ec;
+  background: #89d5ec;
   border-radius: 50px;
   font-size: 18px;
   font-weight: 700;
@@ -99,7 +99,7 @@
   width: 90%; /* Adjust width to 90% for better responsiveness */
   height: 50px;
   color: #110e0e;
-  background: #dc80ec;
+  background: #89d5ec;
   border-radius: 50px;
   font-size: 14px; /* Reduced font size */
   font-weight: 700;
@@ -123,7 +123,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: #4c00b4;
+  background-color: #98cbe7;
 }
 
 nav .menu-item {
@@ -152,10 +152,10 @@ nav .button-container .btn {
   border: none;
   border-radius: 5px;
   color: #ffffff;
-  background-color: #007bff;
+  background-color: #6db6d0;
   cursor: pointer;
 }
 
 nav .button-container .btn:hover {
-  background-color: #782175;
+  background-color: #7fdcf6;
 }

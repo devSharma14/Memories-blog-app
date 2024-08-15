@@ -9,8 +9,8 @@ const Navbar = () => {
   let Links = [
     { name: "HOME", link: "/" },
     { name: "POSTS", link: "/home" },
-    { name: "ABOUT", link: "/about" },
-    { name: "CONTACT", link: "/contact" },
+    // { name: "ABOUT", link: "/about" },
+    // { name: "CONTACT", link: "/contact" },
   ];
   let [open, setOpen] = useState(false);
 
@@ -57,7 +57,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="shadow-md w-full fixed top-0 left-0 bg-purple-950">
+    <div className="navbar shadow-md w-full fixed top-0 left-0 bg-purple-950">
       <div className="md:flex items-center justify-between bg-violet-950 py-4 md:px-10 px-7">
         <div className="font-bold text-2xl cursor-pointer flex items-center gap-1">
           <BookOpenIcon className="w-7 h-7 text-white" />
