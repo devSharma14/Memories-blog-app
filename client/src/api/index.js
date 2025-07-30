@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({ 
-  baseURL: 'https://blog-backend-p2jt.onrender.com' 
+  baseURL: 'blog-backend-production-062a.up.railway.app' 
 });
 
 // Add a request interceptor
