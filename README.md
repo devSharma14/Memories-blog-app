@@ -34,8 +34,6 @@ A full-stack blogging platform where users can read, write, and share posts seam
 **Backend:** Node.js, Express.js  
 **Database:** MongoDB (Mongoose)  
 **Authentication:** bcrypt + JWT  
-**Deployment:** Render / Vercel / Netlify  
-
 ---
 
 ## ⚙️ Setup Instructions
